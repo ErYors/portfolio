@@ -1,5 +1,6 @@
 import Header from './components/Header'
 import Intro from './components/Intro'
+import SectionTitle from './components/SectionTitle'
 import yellowBg from './assets/yellow-bg.png'
 import heroWoman from './assets/hero-woman.png'
 
@@ -32,6 +33,10 @@ function App() {
 
       <main>
         <Intro />
+
+        <section className="max-w-300 mx-auto px-6 py-16">
+          <SectionTitle>Projects</SectionTitle>
+        </section>
       </main>
     </div>
   )
