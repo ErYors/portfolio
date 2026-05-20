@@ -8,7 +8,7 @@ const socialLinks = [
 
 export default function Footer({ name = 'Madelyn Torff', year = 2021 }) {
   return (
-    <footer className="py-12">
+    <footer id="contact" className="py-12">
       <ul className="flex justify-center gap-6">
         {socialLinks.map(({ icon: Icon, href, label }) => (
           <li key={label}>
