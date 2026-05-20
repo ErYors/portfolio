@@ -13,7 +13,7 @@ export default function Button({
   ...props
 }) {
   const base =
-    'inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+    'inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-[0_4px_4px_rgba(0,0,0,0.25)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
 
   return (
     <Tag className={`${base} ${variants[variant]} ${className}`} {...props}>

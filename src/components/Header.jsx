@@ -6,7 +6,7 @@ const navLinks = [
 
 export default function Header({ name = 'Madelyn Torff' }) {
   return (
-    <header className="w-full bg-white">
+    <header className="relative z-10">
       <div className="max-w-300 mx-auto h-14 px-6 flex items-center justify-between">
         <a href="#" className="text-sm font-semibold text-slate-900 tracking-wide">
           {name}
