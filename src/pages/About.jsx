@@ -1,5 +1,5 @@
+import AboutMe from '../components/AboutMe'
+
 export default function About() {
-  return (
-    <p>Rien</p>
-  )
+  return <AboutMe />
 }
