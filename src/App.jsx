@@ -1,10 +1,8 @@
 import Header from './components/Header'
 import Intro from './components/Intro'
-import ProjectCard from './components/ProjectCard'
-import SectionTitle from './components/SectionTitle'
+import Projects from './components/Projects'
 import yellowBg from './assets/yellow-bg.png'
 import heroWoman from './assets/hero-woman.png'
-import project1 from './assets/project-1.png'
 
 function App() {
   return (
@@ -35,18 +33,7 @@ function App() {
 
       <main>
         <Intro />
-
-        <section className="max-w-248 mx-auto px-6 py-16">
-          <SectionTitle>Projects</SectionTitle>
-
-          <div className="mt-10">
-            <ProjectCard
-              name="Project Name"
-              description="I created this personal project in order to show how to create an interface in Figma using a portfolio as an example."
-              image={project1}
-            />
-          </div>
-        </section>
+        <Projects />
       </main>
     </div>
   )
