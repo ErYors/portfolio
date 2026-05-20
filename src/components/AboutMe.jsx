@@ -2,7 +2,7 @@ import Button from './Button'
 
 export default function AboutMe() {
   return (
-    <section className="relative z-10 max-w-300 mx-auto px-6 pt-10 pb-16 sm:pt-14 sm:pb-24">
+    <section className="relative z-10 pt-10 pb-16 sm:pt-14 sm:pb-24">
       <div className="max-w-147">
         <h1 className="text-[clamp(2.25rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-slate-900">
           About me
