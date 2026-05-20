@@ -4,10 +4,10 @@ import Header from './Header'
 
 export default function Layout() {
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative flex min-h-screen flex-col bg-white">
       <Header />
 
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
 
