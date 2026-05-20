@@ -1,16 +1,18 @@
 import Button from './components/Button'
+import Header from './components/Header'
 
 function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white">
-      <div className="flex flex-col gap-8 items-start p-10">
-        <h1 className="text-2xl font-semibold text-slate-900">Test du bouton super cool</h1>
+    <div className="min-h-screen bg-white">
+      <Header />
+
+      <main className="max-w-300 mx-auto px-6 py-12">
         <div className="flex gap-3">
           <Button variant="primary">Projects</Button>
           <Button variant="secondary">LinkedIn</Button>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
 
