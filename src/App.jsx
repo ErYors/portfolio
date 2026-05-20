@@ -1,5 +1,5 @@
-import Button from './components/Button'
 import Header from './components/Header'
+import Intro from './components/Intro'
 import yellowBg from './assets/yellow-bg.png'
 import heroWoman from './assets/hero-woman.png'
 
@@ -30,11 +30,8 @@ function App() {
         </div>
       </div>
 
-      <main className="max-w-300 mx-auto px-6 py-12">
-        <div className="flex gap-3">
-          <Button variant="primary">Projects</Button>
-          <Button variant="secondary">LinkedIn</Button>
-        </div>
+      <main>
+        <Intro />
       </main>
     </div>
   )
