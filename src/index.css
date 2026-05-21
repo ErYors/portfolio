@@ -1,9 +1,25 @@
 @import "tailwindcss";
 
+@theme {
+  --color-yellow: #fdc435;
+  --color-ink: #25282b;
+  --color-muted: #828282;
+  --color-page: #f9faff;
+
+  --font-serif: "Playfair Display", serif;
+  --font-body: "Nunito", sans-serif;
+  --font-logo: "Comfortaa", sans-serif;
+  --font-button: "Roboto", sans-serif;
+  --font-nav: "Raleway", sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-muted);
+  background: var(--color-page);
 }
