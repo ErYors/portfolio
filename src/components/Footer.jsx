@@ -8,22 +8,25 @@ const socialLinks = [
 
 export default function Footer({ name = 'Madelyn Torff', year = 2021 }) {
   return (
-    <footer id="contact" className="py-12">
-      <ul className="flex justify-center gap-6">
+    <footer
+      id="contact"
+      className="flex flex-col items-center gap-8 py-12"
+    >
+      <ul className="flex gap-6">
         {socialLinks.map(({ icon: Icon, href, label }) => (
           <li key={label}>
             <a
               href={href}
               aria-label={label}
-              className="text-slate-900 transition-colors hover:text-slate-500"
+              className="text-ink transition-opacity hover:opacity-70"
             >
-              <Icon size={28} />
+              <Icon size={48} />
             </a>
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
+      <p className="font-body text-base leading-5.5 text-muted">
         {name} {year}
       </p>
     </footer>
