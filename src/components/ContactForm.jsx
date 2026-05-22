@@ -6,19 +6,34 @@ const inputClass =
 const labelClass = 'font-body text-base text-ink'
 
 const fields = [
-  { id: 'name', label: 'Name', type: 'text' },
-  { id: 'email', label: 'Email', type: 'email' },
+  { id: 'name', label: 'Name', type: 'text', autoComplete: 'name' },
+  { id: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
 ]
 
-export default function ContactForm() {
+export default function ContactForm({ onSubmit }) {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onSubmit?.(e)
+  }
+
   return (
-    <form className="flex w-100 max-w-full flex-col items-end gap-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-100 max-w-full flex-col items-end gap-6"
+    >
       {fields.map((field) => (
         <div key={field.id} className="flex w-full flex-col gap-2">
           <label htmlFor={field.id} className={labelClass}>
             {field.label}
           </label>
-          <input id={field.id} type={field.type} className={inputClass} />
+          <input
+            id={field.id}
+            name={field.id}
+            type={field.type}
+            autoComplete={field.autoComplete}
+            required
+            className={inputClass}
+          />
         </div>
       ))}
 
@@ -26,7 +41,13 @@ export default function ContactForm() {
         <label htmlFor="message" className={labelClass}>
           Message
         </label>
-        <textarea id="message" rows={5} className={inputClass} />
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          required
+          className={inputClass}
+        />
       </div>
 
       <Button variant="primary" type="submit">
