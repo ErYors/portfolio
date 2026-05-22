@@ -5,7 +5,7 @@ export default function AboutPortrait() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute top-9.5 right-0 hidden lg:block w-[36.4vw]"
+      className="pointer-events-none absolute top-9.5 right-0 hidden lg:block w-[36.4vw] max-w-131"
     >
       <img src={circle} alt="" className="w-full h-auto" />
       <img
