@@ -10,7 +10,7 @@ export default function About() {
       <AboutMe />
 
       <section className="mt-62.25 flex flex-col items-center gap-20.25 px-6 pt-16 pb-14">
-        <SectionTitle>Projects</SectionTitle>
+        <SectionTitle>Contact</SectionTitle>
         <ContactForm />
       </section>
     </div>

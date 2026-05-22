@@ -34,7 +34,7 @@ export default function Home() {
       <Projects />
 
       <section id="contact" className="flex flex-col items-center gap-20.25 px-6 pt-16 pb-14">
-        <SectionTitle>Projects</SectionTitle>
+        <SectionTitle>Contact</SectionTitle>
         <ContactForm />
       </section>
     </>
