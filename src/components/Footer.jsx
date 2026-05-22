@@ -9,7 +9,7 @@ const socialLinks = [
 
 export default function Footer({ name = 'Madelyn Torff', year = 2021 }) {
   return (
-    <footer id="contact" className="relative pt-12">
+    <footer className="relative pt-12">
       <img src={footerWave} alt="" className="block w-full" />
 
       <div className="absolute inset-x-0 top-12 flex flex-col items-center gap-8">
