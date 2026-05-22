@@ -2,6 +2,8 @@ import Intro from '../components/Intro'
 import Projects from '../components/Projects'
 import yellowBg from '../assets/yellow-bg.png'
 import heroWoman from '../assets/hero-woman.png'
+import ContactForm from '../components/ContactForm'
+import SectionTitle from '../components/SectionTitle'
 
 export default function Home() {
   return (
@@ -30,6 +32,11 @@ export default function Home() {
 
       <Intro />
       <Projects />
+
+      <section id="contact" className="flex flex-col items-center gap-20.25 px-6 pt-16 pb-14">
+        <SectionTitle>Projects</SectionTitle>
+        <ContactForm />
+      </section>
     </>
   )
 }
