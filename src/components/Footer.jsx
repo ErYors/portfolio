@@ -1,4 +1,5 @@
 import { FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+import footerWave from '../assets/footer-wave.png'
 
 const socialLinks = [
   { icon: FaInstagram, href: 'https://www.instagram.com', label: 'Instagram' },
@@ -8,27 +9,28 @@ const socialLinks = [
 
 export default function Footer({ name = 'Madelyn Torff', year = 2021 }) {
   return (
-    <footer
-      id="contact"
-      className="flex flex-col items-center gap-8 py-12"
-    >
-      <ul className="flex gap-6">
-        {socialLinks.map(({ icon: Icon, href, label }) => (
-          <li key={label}>
-            <a
-              href={href}
-              aria-label={label}
-              className="text-ink transition-opacity hover:opacity-70"
-            >
-              <Icon size={48} />
-            </a>
-          </li>
-        ))}
-      </ul>
+    <footer id="contact" className="relative pt-12">
+      <img src={footerWave} alt="" className="block w-full" />
 
-      <p className="font-body text-base leading-5.5 text-muted">
-        {name} {year}
-      </p>
+      <div className="absolute inset-x-0 top-12 flex flex-col items-center gap-8">
+        <ul className="flex gap-6">
+          {socialLinks.map(({ icon: Icon, href, label }) => (
+            <li key={label}>
+              <a
+                href={href}
+                aria-label={label}
+                className="text-ink transition-opacity hover:opacity-70"
+              >
+                <Icon size={48} />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="font-body text-base leading-5.5 text-muted">
+          {name} {year}
+        </p>
+      </div>
     </footer>
   )
 }
