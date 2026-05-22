@@ -1,5 +1,5 @@
 import circle from '../assets/about-circle.png'
-import portrait from '../assets/about-portrait.png'
+import portrait from '../assets/about-portrait.webp'
 
 export default function AboutPortrait() {
   return (

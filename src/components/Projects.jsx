@@ -1,8 +1,8 @@
 import ProjectCard from './ProjectCard'
 import SectionTitle from './SectionTitle'
-import project1 from '../assets/project-1.png'
-import project2 from '../assets/project-2.png'
-import project3 from '../assets/project-3.png'
+import project1 from '../assets/project-1.webp'
+import project2 from '../assets/project-2.webp'
+import project3 from '../assets/project-3.webp'
 
 const projects = [
   {

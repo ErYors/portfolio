@@ -1,5 +1,5 @@
 import yellowBg from '../assets/yellow-bg.png'
-import heroWoman from '../assets/hero-woman.png'
+import heroWoman from '../assets/hero-woman.webp'
 
 const maskStyle = {
   WebkitMaskImage: `url(${yellowBg})`,
