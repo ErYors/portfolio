@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Button from './Button'
 
 const inputClass =
@@ -10,10 +11,20 @@ const fields = [
   { id: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
 ]
 
+const INITIAL_VALUES = { name: '', email: '', message: '' }
+
 export default function ContactForm({ onSubmit }) {
+  const [values, setValues] = useState(INITIAL_VALUES)
+
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setValues((prev) => ({ ...prev, [id]: value }))
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmit?.(e)
+    onSubmit?.(values)
+    setValues(INITIAL_VALUES)
   }
 
   return (
@@ -32,6 +43,8 @@ export default function ContactForm({ onSubmit }) {
             type={field.type}
             autoComplete={field.autoComplete}
             required
+            value={values[field.id]}
+            onChange={handleChange}
             className={inputClass}
           />
         </div>
@@ -46,6 +59,8 @@ export default function ContactForm({ onSubmit }) {
           name="message"
           rows={5}
           required
+          value={values.message}
+          onChange={handleChange}
           className={inputClass}
         />
       </div>
