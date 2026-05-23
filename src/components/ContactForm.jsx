@@ -1,7 +1,7 @@
 import Button from './Button'
 
 const inputClass =
-  'w-full rounded-lg border border-slate-200 bg-white px-4 py-3 font-body text-base text-ink focus:outline-none focus:border-ink transition-colors'
+  'w-full rounded-lg border border-border bg-surface px-4 py-3 font-body text-base text-ink focus:outline-none focus:border-ink transition-colors'
 
 const labelClass = 'font-body text-base text-ink'
 

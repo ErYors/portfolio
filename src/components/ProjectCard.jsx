@@ -11,7 +11,7 @@ export default function ProjectCard({
 
   return (
     <article
-      className={`flex flex-col ${direction} overflow-hidden rounded-3xl bg-white shadow-lg`}
+      className={`flex flex-col ${direction} overflow-hidden rounded-3xl bg-surface shadow-lg`}
     >
       <div className="flex w-full flex-col justify-center gap-6 p-10 md:w-1/2 md:p-12">
         <h3 className="font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-bold text-ink">

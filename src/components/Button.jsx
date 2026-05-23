@@ -1,6 +1,6 @@
 const variants = {
   primary: 'bg-yellow text-ink border border-transparent hover:opacity-90',
-  secondary: 'bg-white text-ink border border-ink hover:bg-slate-50',
+  secondary: 'bg-surface text-ink border border-ink hover:opacity-90',
 }
 
 const base =
