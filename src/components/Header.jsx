@@ -1,4 +1,6 @@
 import { Link, NavLink } from 'react-router'
+import { FaMoon, FaSun } from 'react-icons/fa'
+import useTheme from '../hooks/useTheme'
 
 const tabClass =
   'relative font-nav text-sm font-medium text-ink transition-opacity hover:opacity-70 sm:text-lg'
@@ -6,6 +8,8 @@ const activeClass =
   "after:content-[''] after:absolute after:left-0 after:right-0 after:top-full after:mt-0.5 after:h-0.5 after:bg-ink after:rounded-full"
 
 export default function Header({ name = 'Madelyn Torff' }) {
+  const { theme, toggleTheme } = useTheme()
+
   return (
     <header className="relative z-10 mx-auto flex h-14 w-full max-w-300 items-center justify-between px-4 sm:px-6 xl:px-0">
       <Link
@@ -21,7 +25,7 @@ export default function Header({ name = 'Madelyn Torff' }) {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `${tabClass}${isActive ? ' ' + activeClass : ''}`
+                `${tabClass}${isActive ? ` ${activeClass}` : ''}`
               }
             >
               About
@@ -36,6 +40,20 @@ export default function Header({ name = 'Madelyn Torff' }) {
             <a href="#contact" className={tabClass}>
               Contact
             </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={
+                theme === 'dark'
+                  ? 'Activer le mode clair'
+                  : 'Activer le mode sombre'
+              }
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-ink transition-opacity hover:opacity-70"
+            >
+              {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+            </button>
           </li>
         </ul>
       </nav>
