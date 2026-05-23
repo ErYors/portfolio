@@ -1,6 +1,5 @@
-import { createContext, useEffect, useState } from 'react'
-
-export const ThemeContext = createContext(null)
+import { useEffect, useState } from 'react'
+import { ThemeContext } from './ThemeContext'
 
 const STORAGE_KEY = 'portfolio-theme'
 
