@@ -42,6 +42,16 @@ export default function Header({ name = 'Madelyn Torff' }) {
             </a>
           </li>
           <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `${tabClass}${isActive ? ` ${activeClass}` : ''}`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
             <button
               type="button"
               onClick={toggleTheme}
