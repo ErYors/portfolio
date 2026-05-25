@@ -1,11 +1,20 @@
+import { FaPencilAlt, FaTrash } from 'react-icons/fa'
 import useProjects from '../hooks/useProjects'
 
 const thClass =
   'px-6 py-4 text-left font-body text-sm font-bold uppercase tracking-wide text-ink'
 const tdClass = 'px-6 py-4 align-middle'
+const iconBtnClass =
+  'flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-ink transition-colors hover:bg-page'
 
-export default function ProjectsTable() {
-  const { projects } = useProjects()
+export default function ProjectsTable({ onEdit }) {
+  const { projects, deleteProject } = useProjects()
+
+  const handleDelete = (project) => {
+    if (window.confirm(`Supprimer le projet "${project.name}" ?`)) {
+      deleteProject(project.id)
+    }
+  }
 
   if (projects.length === 0) {
     return (
@@ -41,7 +50,9 @@ export default function ProjectsTable() {
                   className="h-16 w-16 rounded-lg object-cover"
                 />
               </td>
-              <td className={`${tdClass} font-body text-base font-bold text-ink`}>
+              <td
+                className={`${tdClass} font-body text-base font-bold text-ink`}
+              >
                 {project.name}
               </td>
               <td className={`${tdClass} font-body text-sm text-muted`}>
@@ -49,8 +60,25 @@ export default function ProjectsTable() {
                   {project.description}
                 </span>
               </td>
-              <td className={`${tdClass} text-right font-body text-sm text-muted italic`}>
-                à venir
+              <td className={`${tdClass} text-right`}>
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onEdit(project)}
+                    aria-label={`Modifier ${project.name}`}
+                    className={iconBtnClass}
+                  >
+                    <FaPencilAlt size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(project)}
+                    aria-label={`Supprimer ${project.name}`}
+                    className={iconBtnClass}
+                  >
+                    <FaTrash size={14} />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

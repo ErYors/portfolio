@@ -6,6 +6,17 @@ import { ProjectsContext } from './ProjectsContext'
 
 const STORAGE_KEY = 'portfolio-projects'
 
+const PLACEHOLDER_IMAGE =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><rect width="600" height="400" fill="#e2e8f0"/><text x="300" y="200" font-family="sans-serif" font-size="32" text-anchor="middle" dominant-baseline="middle" fill="#64748b">No image</text></svg>`,
+  )
+
+const withDefaults = (project) => ({
+  ...project,
+  image: project.image?.trim() || PLACEHOLDER_IMAGE,
+})
+
 const seedProjects = [
   {
     id: 1,
@@ -50,12 +61,15 @@ export function ProjectsProvider({ children }) {
   }, [projects])
 
   const addProject = (project) => {
-    setProjects((prev) => [...prev, { ...project, id: Date.now() }])
+    setProjects((prev) => [
+      ...prev,
+      { ...withDefaults(project), id: crypto.randomUUID() },
+    ])
   }
 
   const updateProject = (id, updates) => {
     setProjects((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+      prev.map((p) => (p.id === id ? withDefaults({ ...p, ...updates }) : p)),
     )
   }
 
