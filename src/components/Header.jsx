@@ -32,14 +32,14 @@ export default function Header({ name = 'Madelyn Torff' }) {
             </NavLink>
           </li>
           <li>
-            <a href="/#projects" className={tabClass}>
+            <Link to="/#projects" className={tabClass}>
               Projects
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#contact" className={tabClass}>
+            <Link to="/#contact" className={tabClass}>
               Contact
-            </a>
+            </Link>
           </li>
           <li>
             <NavLink
