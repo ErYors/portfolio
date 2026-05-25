@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import placeholder from '../assets/project-placeholder.svg'
 import project1 from '../assets/project-1.webp'
 import project2 from '../assets/project-2.webp'
 import project3 from '../assets/project-3.webp'
@@ -6,15 +7,9 @@ import { ProjectsContext } from './ProjectsContext'
 
 const STORAGE_KEY = 'portfolio-projects'
 
-const PLACEHOLDER_IMAGE =
-  'data:image/svg+xml;utf8,' +
-  encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><rect width="600" height="400" fill="#e2e8f0"/><text x="300" y="200" font-family="sans-serif" font-size="32" text-anchor="middle" dominant-baseline="middle" fill="#64748b">No image</text></svg>`,
-  )
-
 const withDefaults = (project) => ({
   ...project,
-  image: project.image?.trim() || PLACEHOLDER_IMAGE,
+  image: project.image?.trim() || placeholder,
 })
 
 const seedProjects = [
