@@ -1,4 +1,4 @@
-import yellowBg from '../assets/yellow-bg.png'
+import yellowBg from '../assets/yellow-bg.webp'
 import heroWoman from '../assets/hero-woman.webp'
 
 const maskStyle = {
