@@ -41,16 +41,19 @@ export default function ProjectModal({ onClose, onSave, project }) {
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/50 p-4"
-    >
+    <div className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center p-4">
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Fermer la modale"
+        className="absolute inset-0 cursor-default bg-black/50"
+      />
+
       <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg rounded-2xl bg-surface p-8 shadow-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        className="relative w-full max-w-lg rounded-2xl bg-surface p-8 shadow-xl"
       >
         <h2
           id="modal-title"
