@@ -1,14 +1,20 @@
 import { useState } from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FaPlus, FaSearch } from 'react-icons/fa'
 import Button from '../components/Button'
 import ProjectModal from '../components/ProjectModal'
 import ProjectsTable from '../components/ProjectsTable'
 import useProjects from '../hooks/useProjects'
 
 export default function Dashboard() {
-  const { addProject, updateProject } = useProjects()
+  const { projects, addProject, updateProject } = useProjects()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
+  const [search, setSearch] = useState('')
+
+  const query = search.trim().toLowerCase()
+  const filtered = query
+    ? projects.filter((p) => p.name.toLowerCase().includes(query))
+    : projects
 
   const openCreate = () => {
     setEditingProject(null)
@@ -54,7 +60,31 @@ export default function Dashboard() {
         </Button>
       </header>
 
-      <ProjectsTable onEdit={openEdit} />
+      <div className="relative">
+        <FaSearch
+          aria-hidden
+          size={14}
+          className="absolute top-1/2 left-4 -translate-y-1/2 text-muted"
+        />
+        <input
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Rechercher par nom…"
+          aria-label="Rechercher un projet par nom"
+          className="w-full rounded-lg border border-border bg-surface py-3 pr-4 pl-10 font-body text-base text-ink transition-colors focus:border-ink focus:outline-none"
+        />
+      </div>
+
+      <ProjectsTable
+        projects={filtered}
+        onEdit={openEdit}
+        emptyMessage={
+          query
+            ? 'Aucun projet ne correspond à votre recherche.'
+            : 'Aucun projet pour le moment.'
+        }
+      />
 
       {isModalOpen && (
         <ProjectModal

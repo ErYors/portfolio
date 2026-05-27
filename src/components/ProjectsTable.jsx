@@ -7,8 +7,12 @@ const tdClass = 'px-6 py-4 align-middle'
 const iconBtnClass =
   'flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-ink transition-colors hover:bg-page'
 
-export default function ProjectsTable({ onEdit }) {
-  const { projects, deleteProject } = useProjects()
+export default function ProjectsTable({
+  projects,
+  onEdit,
+  emptyMessage = 'Aucun projet pour le moment.',
+}) {
+  const { deleteProject } = useProjects()
 
   const handleDelete = (project) => {
     if (window.confirm(`Supprimer le projet "${project.name}" ?`)) {
@@ -19,9 +23,7 @@ export default function ProjectsTable({ onEdit }) {
   if (projects.length === 0) {
     return (
       <div className="rounded-2xl border border-border bg-surface p-12 text-center">
-        <p className="font-body text-base text-muted">
-          Aucun projet pour le moment.
-        </p>
+        <p className="font-body text-base text-muted">{emptyMessage}</p>
       </div>
     )
   }
