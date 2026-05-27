@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import useImageValidation from '../hooks/useImageValidation'
 import Button from './Button'
+import ImageStatus from './ImageStatus'
 
 const inputClass =
   'w-full rounded-lg border border-border bg-surface px-4 py-3 font-body text-base text-ink focus:outline-none focus:border-ink transition-colors'
@@ -11,6 +13,7 @@ const EMPTY_PROJECT = { name: '', description: '', image: '' }
 export default function ProjectModal({ onClose, onSave, project }) {
   const [values, setValues] = useState(project ?? EMPTY_PROJECT)
   const nameInputRef = useRef(null)
+  const imageStatus = useImageValidation(values.image)
   const isEditing = project != null
 
   useEffect(() => {
@@ -104,6 +107,7 @@ export default function ProjectModal({ onClose, onSave, project }) {
               onChange={handleChange}
               className={inputClass}
             />
+            <ImageStatus status={imageStatus} />
           </div>
 
           <div className="mt-4 flex justify-end gap-3">
