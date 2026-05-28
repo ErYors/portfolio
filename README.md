@@ -16,10 +16,10 @@ npm run lint     # ESLint
 ```
 src/
 ├── assets/             # Images (WebP, SVG)
-├── components/         # 16 composants réutilisables
-├── contexts/           # ThemeContext + ProjectsContext (+ leurs Providers)
-├── hooks/              # useTheme, useProjects
-├── pages/              # Home, About, Dashboard
+├── components/         # 20 composants réutilisables (UI, modale, table, toast, error boundary…)
+├── contexts/           # Theme + Projects + Toast (+ leurs Providers)
+├── hooks/              # useTheme, useProjects, useImageValidation, useToast
+├── pages/              # Home, About, Dashboard, NotFound (404)
 ├── App.jsx             # Routes
 ├── main.jsx            # Entry point + Providers
 └── index.css           # Tailwind + design tokens (@theme)
@@ -27,14 +27,17 @@ src/
 
 ## Hooks React utilisés
 
-| Hook | Lieu | Usage |
-|---|---|---|
-| `useState` | 6 composants | État local (form, theme, modale, projets, carousel) |
-| `useEffect` | 5 composants | localStorage sync, auto-rotation, scroll lock, keyboard listeners, hash scroll |
-| `useContext` | 2 contextes | Theme global + Projects global |
-| `useRef` | ProjectModal | Auto-focus du premier input |
-| Custom `useTheme` | hooks/ | Wrapper du context theme avec guard |
-| Custom `useProjects` | hooks/ | Wrapper du context projets avec guard |
+| Hook | Usage |
+|---|---|
+| `useState` | État local (form, theme, modale, projets, carousel, recherche, toasts) |
+| `useEffect` | localStorage sync, auto-rotation, scroll lock, keyboard listeners, hash scroll, validation image debounced |
+| `useContext` | Theme + Projects + Toast (3 contexts globaux) |
+| `useRef` | Auto-focus du premier input de la modale |
+| `useCallback` / `useMemo` | Memoization des handlers et de l'API toast |
+| Custom `useTheme` | Wrapper du context theme avec guard |
+| Custom `useProjects` | Wrapper du context projets avec guard |
+| Custom `useImageValidation` | Vérifie une URL d'image en debounced (idle / loading / valid / invalid) |
+| Custom `useToast` | Wrapper du context toast avec guard |
 
 ## Design tokens
 
@@ -71,4 +74,4 @@ Le PDF mentionne ce package. **React Router v7** (fin 2024) a consolidé `react-
 
 ## Stack
 
-React 19 · Vite 8 · Tailwind CSS 4 · react-router 7 · react-icons · ESLint
+React 19 · Vite 8 · Tailwind CSS 4 · react-router 7 · react-icons · ESLint (+ plugins react & jsx-a11y)
