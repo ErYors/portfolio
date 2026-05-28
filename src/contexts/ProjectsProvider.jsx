@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import placeholder from '../assets/project-placeholder.svg'
 import project1 from '../assets/project-1.webp'
 import project2 from '../assets/project-2.webp'
@@ -55,37 +55,40 @@ export function ProjectsProvider({ children }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
   }, [projects])
 
-  const addProject = (project) => {
+  const addProject = useCallback((project) => {
     setProjects((prev) => [
       ...prev,
       { ...withDefaults(project), id: crypto.randomUUID() },
     ])
-  }
+  }, [])
 
-  const updateProject = (id, updates) => {
+  const updateProject = useCallback((id, updates) => {
     setProjects((prev) =>
       prev.map((p) => (p.id === id ? withDefaults({ ...p, ...updates }) : p)),
     )
-  }
+  }, [])
 
-  const deleteProject = (id) => {
+  const deleteProject = useCallback((id) => {
     setProjects((prev) => prev.filter((p) => p.id !== id))
-  }
+  }, [])
 
-  const resetProjects = () => {
+  const resetProjects = useCallback(() => {
     setProjects(seedProjects)
-  }
+  }, [])
+
+  const value = useMemo(
+    () => ({
+      projects,
+      addProject,
+      updateProject,
+      deleteProject,
+      resetProjects,
+    }),
+    [projects, addProject, updateProject, deleteProject, resetProjects],
+  )
 
   return (
-    <ProjectsContext.Provider
-      value={{
-        projects,
-        addProject,
-        updateProject,
-        deleteProject,
-        resetProjects,
-      }}
-    >
+    <ProjectsContext.Provider value={value}>
       {children}
     </ProjectsContext.Provider>
   )
