@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'
 import useProjects from '../hooks/useProjects'
 import useToast from '../hooks/useToast'
+import ConfirmModal from './ConfirmModal'
 
 const thClass =
   'px-6 py-4 text-left font-body text-sm font-bold uppercase tracking-wide text-ink'
@@ -15,12 +17,12 @@ export default function ProjectsTable({
 }) {
   const { deleteProject } = useProjects()
   const toast = useToast()
+  const [confirming, setConfirming] = useState(null)
 
-  const handleDelete = (project) => {
-    if (window.confirm(`Supprimer le projet "${project.name}" ?`)) {
-      deleteProject(project.id)
-      toast.success('Projet supprimé')
-    }
+  const handleConfirm = () => {
+    deleteProject(confirming.id)
+    toast.success('Projet supprimé')
+    setConfirming(null)
   }
 
   if (projects.length === 0) {
@@ -77,7 +79,7 @@ export default function ProjectsTable({
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleDelete(project)}
+                    onClick={() => setConfirming(project)}
                     aria-label={`Supprimer ${project.name}`}
                     className={iconBtnClass}
                   >
@@ -89,6 +91,17 @@ export default function ProjectsTable({
           ))}
         </tbody>
       </table>
+
+      {confirming && (
+        <ConfirmModal
+          title="Supprimer le projet ?"
+          message={`Le projet "${confirming.name}" sera supprimé définitivement.`}
+          confirmLabel="Supprimer"
+          confirmVariant="danger"
+          onConfirm={handleConfirm}
+          onCancel={() => setConfirming(null)}
+        />
+      )}
     </div>
   )
 }
