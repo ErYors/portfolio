@@ -4,9 +4,11 @@ import Button from '../components/Button'
 import ProjectModal from '../components/ProjectModal'
 import ProjectsTable from '../components/ProjectsTable'
 import useProjects from '../hooks/useProjects'
+import useToast from '../hooks/useToast'
 
 export default function Dashboard() {
   const { projects, addProject, updateProject } = useProjects()
+  const toast = useToast()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
   const [search, setSearch] = useState('')
@@ -34,8 +36,10 @@ export default function Dashboard() {
   const handleSave = (values) => {
     if (editingProject) {
       updateProject(editingProject.id, values)
+      toast.success('Projet modifié')
     } else {
       addProject(values)
+      toast.success('Projet créé')
     }
     closeModal()
   }

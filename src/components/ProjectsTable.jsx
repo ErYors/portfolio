@@ -1,5 +1,6 @@
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'
 import useProjects from '../hooks/useProjects'
+import useToast from '../hooks/useToast'
 
 const thClass =
   'px-6 py-4 text-left font-body text-sm font-bold uppercase tracking-wide text-ink'
@@ -13,10 +14,12 @@ export default function ProjectsTable({
   emptyMessage = 'Aucun projet pour le moment.',
 }) {
   const { deleteProject } = useProjects()
+  const toast = useToast()
 
   const handleDelete = (project) => {
     if (window.confirm(`Supprimer le projet "${project.name}" ?`)) {
       deleteProject(project.id)
+      toast.success('Projet supprimé')
     }
   }
 
