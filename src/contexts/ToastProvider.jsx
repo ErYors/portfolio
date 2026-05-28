@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Toast from '../components/Toast'
 import { ToastContext } from './ToastContext'
 
@@ -6,8 +6,14 @@ const TOAST_DURATION_MS = 3000
 
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([])
+  const timers = useRef(new Map())
 
   const dismiss = useCallback((id) => {
+    const timer = timers.current.get(id)
+    if (timer) {
+      clearTimeout(timer)
+      timers.current.delete(id)
+    }
     setToasts((prev) => prev.filter((t) => t.id !== id))
   }, [])
 
@@ -15,10 +21,19 @@ export function ToastProvider({ children }) {
     (type, message) => {
       const id = crypto.randomUUID()
       setToasts((prev) => [...prev, { id, type, message }])
-      setTimeout(() => dismiss(id), TOAST_DURATION_MS)
+      const timer = setTimeout(() => dismiss(id), TOAST_DURATION_MS)
+      timers.current.set(id, timer)
     },
     [dismiss],
   )
+
+  useEffect(() => {
+    const map = timers.current
+    return () => {
+      map.forEach(clearTimeout)
+      map.clear()
+    }
+  }, [])
 
   const api = useMemo(
     () => ({
