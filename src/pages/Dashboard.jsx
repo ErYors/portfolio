@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
 import Button from '../components/Button'
 import ProjectModal from '../components/ProjectModal'
@@ -13,10 +13,12 @@ export default function Dashboard() {
   const [editingProject, setEditingProject] = useState(null)
   const [search, setSearch] = useState('')
 
-  const query = search.trim().toLowerCase()
-  const filtered = query
-    ? projects.filter((p) => p.name.toLowerCase().includes(query))
-    : projects
+  const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase()
+    return query
+      ? projects.filter((p) => p.name.toLowerCase().includes(query))
+      : projects
+  }, [projects, search])
 
   const openCreate = () => {
     setEditingProject(null)
@@ -84,7 +86,7 @@ export default function Dashboard() {
         projects={filtered}
         onEdit={openEdit}
         emptyMessage={
-          query
+          search.trim()
             ? 'Aucun projet ne correspond à votre recherche.'
             : 'Aucun projet pour le moment.'
         }
