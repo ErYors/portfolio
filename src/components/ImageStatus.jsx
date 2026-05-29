@@ -15,13 +15,13 @@ const CONFIG = {
     Icon: FaCheckCircle,
     iconClass: '',
     text: 'Image valide',
-    textClass: 'text-green-600 dark:text-green-400',
+    textClass: 'text-success',
   },
   invalid: {
     Icon: FaExclamationCircle,
     iconClass: '',
     text: 'URL invalide ou image inaccessible',
-    textClass: 'text-orange-600 dark:text-orange-400',
+    textClass: 'text-error',
   },
 }
 

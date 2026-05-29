@@ -5,9 +5,9 @@ import {
 } from 'react-icons/fa'
 
 const CONFIG = {
-  success: { Icon: FaCheckCircle, className: 'bg-green-600 text-white' },
-  error: { Icon: FaExclamationCircle, className: 'bg-red-600 text-white' },
-  info: { Icon: FaInfoCircle, className: 'bg-slate-700 text-white' },
+  success: { Icon: FaCheckCircle, className: 'bg-success text-white' },
+  error: { Icon: FaExclamationCircle, className: 'bg-error text-white' },
+  info: { Icon: FaInfoCircle, className: 'bg-info text-white' },
 }
 
 export default function Toast({ type, message }) {

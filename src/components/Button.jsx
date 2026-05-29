@@ -1,7 +1,7 @@
 const variants = {
   primary: 'bg-yellow text-ink border border-transparent hover:opacity-90',
   secondary: 'bg-surface text-ink border border-ink hover:opacity-90',
-  danger: 'bg-red-600 text-white border border-transparent hover:opacity-90',
+  danger: 'bg-error text-white border border-transparent hover:opacity-90',
 }
 
 const base =
