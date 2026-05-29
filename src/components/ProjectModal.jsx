@@ -17,7 +17,9 @@ export default function ProjectModal({ onClose, onSave, project }) {
   const isEditing = project != null
 
   useEffect(() => {
+    const previouslyFocused = document.activeElement
     nameInputRef.current?.focus()
+    return () => previouslyFocused?.focus?.()
   }, [])
 
   useEffect(() => {

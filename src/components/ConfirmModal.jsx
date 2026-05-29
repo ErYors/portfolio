@@ -13,7 +13,9 @@ export default function ConfirmModal({
   const cancelRef = useRef(null)
 
   useEffect(() => {
+    const previouslyFocused = document.activeElement
     cancelRef.current?.focus()
+    return () => previouslyFocused?.focus?.()
   }, [])
 
   useEffect(() => {
