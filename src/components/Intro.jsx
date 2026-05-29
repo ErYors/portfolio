@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import Button from './Button'
 
 export default function Intro() {
@@ -18,8 +19,18 @@ export default function Intro() {
         </p>
 
         <div className="mt-10 flex gap-3">
-          <Button variant="primary">Projects</Button>
-          <Button variant="secondary">LinkedIn</Button>
+          <Button as={Link} to="/#projects" variant="primary">
+            Projects
+          </Button>
+          <Button
+            as="a"
+            href="https://www.linkedin.com/in/erwan-godelle-549822263/"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+          >
+            LinkedIn
+          </Button>
         </div>
       </div>
     </section>
