@@ -14,7 +14,7 @@ const withDefaults = (project) => ({
 
 const seedProjects = [
   {
-    id: 1,
+    id: 'seed-1',
     name: 'Project Name',
     description:
       'I created this personal project in order to show how to create an interface in Figma using a portfolio as an example.',
@@ -22,7 +22,7 @@ const seedProjects = [
     url: 'https://github.com/ErYors/portfolio',
   },
   {
-    id: 2,
+    id: 'seed-2',
     name: 'Project Name',
     description:
       'What was your role, your deliverables, if the project was personal, freelancing.',
@@ -30,7 +30,7 @@ const seedProjects = [
     url: 'https://github.com/ErYors/portfolio',
   },
   {
-    id: 3,
+    id: 'seed-3',
     name: 'Project Name',
     description:
       'You can also add in this description the type of the project, if it was for web, mobile, electron.',
