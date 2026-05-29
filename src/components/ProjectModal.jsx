@@ -101,8 +101,8 @@ export default function ProjectModal({ onClose, onSave, project }) {
             </label>
             <input
               id="image"
-              type="url"
-              placeholder="Laissez vide pour utiliser une image par défaut"
+              type="text"
+              placeholder="https://… (laisser vide pour l'image par défaut)"
               value={values.image}
               onChange={handleChange}
               className={inputClass}
