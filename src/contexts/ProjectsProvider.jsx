@@ -19,6 +19,7 @@ const seedProjects = [
     description:
       'I created this personal project in order to show how to create an interface in Figma using a portfolio as an example.',
     image: project1,
+    url: 'https://github.com/ErYors/portfolio',
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const seedProjects = [
     description:
       'What was your role, your deliverables, if the project was personal, freelancing.',
     image: project2,
+    url: 'https://github.com/ErYors/portfolio',
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const seedProjects = [
     description:
       'You can also add in this description the type of the project, if it was for web, mobile, electron.',
     image: project3,
+    url: 'https://github.com/ErYors/portfolio',
   },
 ]
 

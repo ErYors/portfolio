@@ -4,8 +4,8 @@ export default function ProjectCard({
   name = 'Project Name',
   description,
   image,
+  url,
   reverse = false,
-  href = '#',
 }) {
   const direction = reverse ? 'md:flex-row-reverse' : 'md:flex-row'
 
@@ -20,16 +20,20 @@ export default function ProjectCard({
         <p className="font-body text-base leading-relaxed text-muted">
           {description}
         </p>
-        <div>
-          <Button
-            variant="secondary"
-            as="a"
-            href={href}
-            className="rounded-full"
-          >
-            View Project
-          </Button>
-        </div>
+        {url && (
+          <div>
+            <Button
+              variant="secondary"
+              as="a"
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full"
+            >
+              View Project
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="aspect-square w-full md:aspect-auto md:w-1/2">

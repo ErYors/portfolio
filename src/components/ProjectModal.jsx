@@ -8,10 +8,10 @@ const inputClass =
 
 const labelClass = 'font-body text-base font-bold text-ink'
 
-const EMPTY_PROJECT = { name: '', description: '', image: '' }
+const EMPTY_PROJECT = { name: '', description: '', image: '', url: '' }
 
 export default function ProjectModal({ onClose, onSave, project }) {
-  const [values, setValues] = useState(project ?? EMPTY_PROJECT)
+  const [values, setValues] = useState({ ...EMPTY_PROJECT, ...project })
   const nameInputRef = useRef(null)
   const imageStatus = useImageValidation(values.image)
   const isEditing = project != null
@@ -108,6 +108,20 @@ export default function ProjectModal({ onClose, onSave, project }) {
               className={inputClass}
             />
             <ImageStatus status={imageStatus} />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label htmlFor="url" className={labelClass}>
+              Lien du projet (URL)
+            </label>
+            <input
+              id="url"
+              type="url"
+              placeholder="https://… (optionnel)"
+              value={values.url}
+              onChange={handleChange}
+              className={inputClass}
+            />
           </div>
 
           <div className="mt-4 flex justify-end gap-3">
