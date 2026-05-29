@@ -2,6 +2,15 @@
 
 Portfolio personnel construit à partir de la maquette Figma fournie, avec React 19, Tailwind CSS v4, et un dashboard CRUD complet.
 
+## Bonus implémentés
+
+Les **deux bonus** du sujet sont réalisés :
+
+- **`useContext`** - dark mode global (ThemeProvider + tokens override dans `.dark`, persistance localStorage).
+- **CRUD complet** - dashboard de gestion des projets (création, lecture, édition, suppression) avec persistance localStorage, modale de formulaire, modale de confirmation, recherche et toasts de feedback.
+
+Extras au-delà du barème : Error Boundary, page 404, validation d'URL d'image en live, notifications toast, recherche filtrée, menu burger responsive, accessibilité (ARIA, auto-focus modale, Escape, scroll lock, lint `jsx-a11y`), typographie fluide (`clamp()`), optimisations performance (`useMemo` / `useCallback`, values de context mémoïsées), assets WebP optimisés (fingerprinting Vite).
+
 ## Démarrage
 
 ```bash
@@ -16,7 +25,7 @@ npm run lint     # ESLint
 ```
 src/
 ├── assets/             # Images (WebP, SVG)
-├── components/         # 20 composants réutilisables (UI, modale, table, toast, error boundary…)
+├── components/         # 21 composants réutilisables (UI, modale, table, toast, error boundary…)
 ├── contexts/           # Theme + Projects + Toast (+ leurs Providers)
 ├── hooks/              # useTheme, useProjects, useImageValidation, useToast
 ├── pages/              # Home, About, Dashboard, NotFound (404)
@@ -51,6 +60,10 @@ Définis dans `src/index.css` via `@theme`, override dans `.dark` pour le dark m
   --color-page: #f9faff;
   --color-surface: #ffffff;
   --color-border: #e2e8f0;
+
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-info: #334155;
 
   --font-serif: "Playfair Display", serif;
   --font-body: "Nunito", sans-serif;
