@@ -1,8 +1,4 @@
-import {
-  FaCheckCircle,
-  FaExclamationCircle,
-  FaSpinner,
-} from 'react-icons/fa'
+import { FaCheckCircle, FaExclamationCircle, FaSpinner } from 'react-icons/fa'
 
 const CONFIG = {
   loading: {

@@ -36,17 +36,17 @@ src/
 
 ## Hooks React utilisés
 
-| Hook | Usage |
-|---|---|
-| `useState` | État local (form, theme, modale, projets, carousel, recherche, toasts) |
-| `useEffect` | localStorage sync, auto-rotation, scroll lock, keyboard listeners, hash scroll, validation image debounced |
-| `useContext` | Theme + Projects + Toast (3 contexts globaux) |
-| `useRef` | Auto-focus du premier input de la modale |
-| `useCallback` / `useMemo` | Memoization des handlers et de l'API toast |
-| Custom `useTheme` | Wrapper du context theme avec guard |
-| Custom `useProjects` | Wrapper du context projets avec guard |
-| Custom `useImageValidation` | Vérifie une URL d'image en debounced (idle / loading / valid / invalid) |
-| Custom `useToast` | Wrapper du context toast avec guard |
+| Hook                        | Usage                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `useState`                  | État local (form, theme, modale, projets, carousel, recherche, toasts)                                     |
+| `useEffect`                 | localStorage sync, auto-rotation, scroll lock, keyboard listeners, hash scroll, validation image debounced |
+| `useContext`                | Theme + Projects + Toast (3 contexts globaux)                                                              |
+| `useRef`                    | Auto-focus du premier input de la modale                                                                   |
+| `useCallback` / `useMemo`   | Memoization des handlers et de l'API toast                                                                 |
+| Custom `useTheme`           | Wrapper du context theme avec guard                                                                        |
+| Custom `useProjects`        | Wrapper du context projets avec guard                                                                      |
+| Custom `useImageValidation` | Vérifie une URL d'image en debounced (idle / loading / valid / invalid)                                    |
+| Custom `useToast`           | Wrapper du context toast avec guard                                                                        |
 
 ## Design tokens
 
@@ -65,11 +65,11 @@ Définis dans `src/index.css` via `@theme`, override dans `.dark` pour le dark m
   --color-error: #dc2626;
   --color-info: #334155;
 
-  --font-serif: "Playfair Display", serif;
-  --font-body: "Nunito", sans-serif;
-  --font-logo: "Comfortaa", sans-serif;
-  --font-button: "Roboto", sans-serif;
-  --font-nav: "Raleway", sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-logo: 'Comfortaa', sans-serif;
+  --font-button: 'Roboto', sans-serif;
+  --font-nav: 'Raleway', sans-serif;
 }
 ```
 

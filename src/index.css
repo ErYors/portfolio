@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -14,11 +14,11 @@
   --color-error: #dc2626;
   --color-info: #334155;
 
-  --font-serif: "Playfair Display", serif;
-  --font-body: "Nunito", sans-serif;
-  --font-logo: "Comfortaa", sans-serif;
-  --font-button: "Roboto", sans-serif;
-  --font-nav: "Raleway", sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-logo: 'Comfortaa', sans-serif;
+  --font-button: 'Roboto', sans-serif;
+  --font-nav: 'Raleway', sans-serif;
 
   --animate-fade-in: fade-in 0.4s ease-out;
 }

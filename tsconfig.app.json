@@ -15,12 +15,18 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Alias d'import */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Migration incrémentale JS -> TS */
     "allowJs": true,
     "checkJs": false,
 
     /* Linting strict */
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,

@@ -8,7 +8,7 @@ const testimonials = [
     name: 'Sarah Johnson',
     role: 'Product Manager, Acme Corp',
     quote:
-      "Madelyn brought our vision to life with stunning attention to detail. Her design sensibility transformed our product into something truly delightful.",
+      'Madelyn brought our vision to life with stunning attention to detail. Her design sensibility transformed our product into something truly delightful.',
   },
   {
     id: 2,
@@ -72,7 +72,9 @@ export default function Testimonials() {
             aria-label={`Voir témoignage ${i + 1}`}
             onClick={() => setActiveIndex(i)}
             className={`h-2 cursor-pointer rounded-full transition-all ${
-              i === activeIndex ? 'w-8 bg-ink' : 'w-2 bg-muted/40 hover:bg-muted'
+              i === activeIndex
+                ? 'w-8 bg-ink'
+                : 'w-2 bg-muted/40 hover:bg-muted'
             }`}
           />
         ))}
