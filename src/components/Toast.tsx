@@ -1,16 +1,24 @@
+import type { IconType } from 'react-icons'
 import {
   FaCheckCircle,
   FaExclamationCircle,
   FaInfoCircle,
 } from 'react-icons/fa'
 
-const CONFIG = {
+export type ToastType = 'success' | 'error' | 'info'
+
+const CONFIG: Record<ToastType, { Icon: IconType; className: string }> = {
   success: { Icon: FaCheckCircle, className: 'bg-success text-white' },
   error: { Icon: FaExclamationCircle, className: 'bg-error text-white' },
   info: { Icon: FaInfoCircle, className: 'bg-info text-white' },
 }
 
-export default function Toast({ type, message }) {
+interface ToastProps {
+  type: ToastType
+  message: string
+}
+
+export default function Toast({ type, message }: ToastProps) {
   const { Icon, className } = CONFIG[type]
   return (
     <div

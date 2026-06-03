@@ -1,6 +1,16 @@
+import type { IconType } from 'react-icons'
 import { FaCheckCircle, FaExclamationCircle, FaSpinner } from 'react-icons/fa'
 
-const CONFIG = {
+export type ImageStatus = 'idle' | 'loading' | 'valid' | 'invalid'
+
+interface StatusConfig {
+  Icon: IconType
+  iconClass: string
+  text: string
+  textClass: string
+}
+
+const CONFIG: Record<Exclude<ImageStatus, 'idle'>, StatusConfig> = {
   loading: {
     Icon: FaSpinner,
     iconClass: 'animate-spin',
@@ -21,7 +31,7 @@ const CONFIG = {
   },
 }
 
-export default function ImageStatus({ status }) {
+export default function ImageStatus({ status }: { status: ImageStatus }) {
   if (status === 'idle') return null
 
   const { Icon, iconClass, text, textClass } = CONFIG[status]

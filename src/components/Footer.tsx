@@ -1,13 +1,28 @@
+import type { IconType } from 'react-icons'
 import { FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa'
-import footerWave from '../assets/footer-wave.png'
+import footerWave from '@/assets/footer-wave.png'
 
-const socialLinks = [
+interface SocialLink {
+  icon: IconType
+  href: string
+  label: string
+}
+
+const socialLinks: SocialLink[] = [
   { icon: FaInstagram, href: 'https://www.instagram.com', label: 'Instagram' },
   { icon: FaLinkedin, href: 'https://www.linkedin.com', label: 'LinkedIn' },
   { icon: FaEnvelope, href: 'mailto:erwan.godelle@efrei.net', label: 'Email' },
 ]
 
-export default function Footer({ name = 'Madelyn Torff', year = 2021 }) {
+interface FooterProps {
+  name?: string
+  year?: number
+}
+
+export default function Footer({
+  name = 'Madelyn Torff',
+  year = 2021,
+}: FooterProps) {
   return (
     <footer className="relative pt-12">
       <img src={footerWave} alt="" className="block w-full" />

@@ -1,12 +1,15 @@
+import type { Project } from '@/types'
 import Button from './Button'
 
+type ProjectCardProps = Project & { reverse?: boolean }
+
 export default function ProjectCard({
-  name = 'Project Name',
+  name,
   description,
   image,
   url,
   reverse = false,
-}) {
+}: ProjectCardProps) {
   const direction = reverse ? 'md:flex-row-reverse' : 'md:flex-row'
 
   return (
