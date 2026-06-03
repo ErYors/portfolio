@@ -1,7 +1,8 @@
-import yellowBg from '../assets/yellow-bg.webp'
-import heroWoman from '../assets/hero-woman.webp'
+import type { CSSProperties } from 'react'
+import yellowBg from '@/assets/yellow-bg.webp'
+import heroWoman from '@/assets/hero-woman.webp'
 
-const maskStyle = {
+const maskStyle: CSSProperties = {
   WebkitMaskImage: `url(${yellowBg})`,
   maskImage: `url(${yellowBg})`,
   WebkitMaskSize: '100% 100%',
