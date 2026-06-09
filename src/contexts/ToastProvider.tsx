@@ -1,14 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Toast from '../components/Toast'
-import { ToastContext } from './ToastContext'
+import type { ReactNode } from 'react'
+import Toast, { type ToastType } from '@/components/Toast'
+import { ToastContext, type ToastApi } from '@/contexts/ToastContext'
 
 const TOAST_DURATION_MS = 3000
 
-export function ToastProvider({ children }) {
-  const [toasts, setToasts] = useState([])
-  const timers = useRef(new Map())
+interface ToastItem {
+  id: string
+  type: ToastType
+  message: string
+}
 
-  const dismiss = useCallback((id) => {
+export function ToastProvider({ children }: { children: ReactNode }) {
+  const [toasts, setToasts] = useState<ToastItem[]>([])
+  const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>())
+
+  const dismiss = useCallback((id: string) => {
     const timer = timers.current.get(id)
     if (timer) {
       clearTimeout(timer)
@@ -18,7 +25,7 @@ export function ToastProvider({ children }) {
   }, [])
 
   const show = useCallback(
-    (type, message) => {
+    (type: ToastType, message: string) => {
       const id = crypto.randomUUID()
       setToasts((prev) => [...prev, { id, type, message }])
       const timer = setTimeout(() => dismiss(id), TOAST_DURATION_MS)
@@ -35,7 +42,7 @@ export function ToastProvider({ children }) {
     }
   }, [])
 
-  const api = useMemo(
+  const api = useMemo<ToastApi>(
     () => ({
       success: (msg) => show('success', msg),
       error: (msg) => show('error', msg),

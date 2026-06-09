@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
+import type { ImageStatus } from '@/components/ImageStatus'
 
 const DEBOUNCE_MS = 500
 
-export default function useImageValidation(url) {
+interface ValidationResult {
+  url: string
+  status: Extract<ImageStatus, 'valid' | 'invalid'>
+}
+
+export default function useImageValidation(url: string): ImageStatus {
   const trimmed = url.trim()
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState<ValidationResult | null>(null)
 
   useEffect(() => {
     if (!trimmed) return

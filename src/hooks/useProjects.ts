@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ProjectsContext } from '../contexts/ProjectsContext'
+import { ProjectsContext } from '@/contexts/ProjectsContext'
 
 export default function useProjects() {
   const ctx = useContext(ProjectsContext)
