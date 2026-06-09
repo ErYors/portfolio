@@ -20,10 +20,6 @@
       "@/*": ["./src/*"]
     },
 
-    /* Migration incrémentale JS -> TS */
-    "allowJs": true,
-    "checkJs": false,
-
     /* Linting strict */
     "strict": true,
     "noUncheckedIndexedAccess": true,

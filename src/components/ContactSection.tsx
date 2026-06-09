@@ -1,7 +1,11 @@
 import ContactForm from './ContactForm'
 import SectionTitle from './SectionTitle'
 
-export default function ContactSection({ className = '' }) {
+export default function ContactSection({
+  className = '',
+}: {
+  className?: string
+}) {
   return (
     <section
       id="contact"

@@ -1,6 +1,6 @@
-import AboutMe from '../components/AboutMe'
-import AboutPortrait from '../components/AboutPortrait'
-import ContactSection from '../components/ContactSection'
+import AboutMe from '@/components/AboutMe'
+import AboutPortrait from '@/components/AboutPortrait'
+import ContactSection from '@/components/ContactSection'
 
 export default function About() {
   return (

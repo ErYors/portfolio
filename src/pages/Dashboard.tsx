@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react'
 import { FaPlus, FaSearch } from 'react-icons/fa'
-import Button from '../components/Button'
-import ProjectModal from '../components/ProjectModal'
-import ProjectsTable from '../components/ProjectsTable'
-import useProjects from '../hooks/useProjects'
-import useToast from '../hooks/useToast'
+import type { Project, ProjectDraft } from '@/types'
+import Button from '@/components/Button'
+import ProjectModal from '@/components/ProjectModal'
+import ProjectsTable from '@/components/ProjectsTable'
+import useProjects from '@/hooks/useProjects'
+import useToast from '@/hooks/useToast'
 
 export default function Dashboard() {
   const { projects, addProject, updateProject } = useProjects()
   const toast = useToast()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingProject, setEditingProject] = useState(null)
+  const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [search, setSearch] = useState('')
 
   const filtered = useMemo(() => {
@@ -25,7 +26,7 @@ export default function Dashboard() {
     setIsModalOpen(true)
   }
 
-  const openEdit = (project) => {
+  const openEdit = (project: Project) => {
     setEditingProject(project)
     setIsModalOpen(true)
   }
@@ -35,7 +36,7 @@ export default function Dashboard() {
     setEditingProject(null)
   }
 
-  const handleSave = (values) => {
+  const handleSave = (values: ProjectDraft) => {
     if (editingProject) {
       updateProject(editingProject.id, values)
       toast.success('Projet modifié')

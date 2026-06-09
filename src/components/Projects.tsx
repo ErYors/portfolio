@@ -1,4 +1,4 @@
-import useProjects from '../hooks/useProjects'
+import useProjects from '@/hooks/useProjects'
 import ProjectCard from './ProjectCard'
 import SectionTitle from './SectionTitle'
 
