@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import Toast, { type ToastType } from '@/components/Toast'
-import { ToastContext, type ToastApi } from '@/contexts/ToastContext'
+import { ToastContext, type ToastApi } from '@/context/ToastContext'
 
 const TOAST_DURATION_MS = 3000
 

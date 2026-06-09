@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { ThemeContext, type Theme } from '@/contexts/ThemeContext'
+import { ThemeContext, type Theme } from '@/context/ThemeContext'
 
 const STORAGE_KEY = 'portfolio-theme'
 

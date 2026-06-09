@@ -4,7 +4,7 @@ import placeholder from '@/assets/project-placeholder.svg'
 import project1 from '@/assets/project-1.webp'
 import project2 from '@/assets/project-2.webp'
 import project3 from '@/assets/project-3.webp'
-import { ProjectsContext } from '@/contexts/ProjectsContext'
+import { ProjectsContext } from '@/context/ProjectsContext'
 import type { Project, ProjectDraft } from '@/types'
 
 const STORAGE_KEY = 'portfolio-projects'
