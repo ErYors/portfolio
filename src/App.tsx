@@ -1,9 +1,11 @@
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router'
 import Layout from '@/layouts/Layout'
-import About from '@/pages/About'
-import Dashboard from '@/pages/Dashboard'
-import Home from '@/pages/Home'
-import NotFound from '@/pages/NotFound'
+
+const Home = lazy(() => import('@/pages/Home'))
+const About = lazy(() => import('@/pages/About'))
+const Dashboard = lazy(() => import('@/pages/Dashboard'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default function App() {
   return (

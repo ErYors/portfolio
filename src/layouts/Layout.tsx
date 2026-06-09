@@ -1,6 +1,8 @@
+import { Suspense } from 'react'
 import { Outlet } from 'react-router'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import PageFallback from '@/components/PageFallback'
 import ScrollToAnchor from '@/components/ScrollToAnchor'
 
 export default function Layout() {
@@ -10,7 +12,9 @@ export default function Layout() {
       <Header />
 
       <main className="flex-1">
-        <Outlet />
+        <Suspense fallback={<PageFallback />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <Footer />
