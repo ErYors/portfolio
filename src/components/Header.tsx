@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa'
-import useTheme from '../hooks/useTheme'
+import useTheme from '@/hooks/useTheme'
 
 const tabClass =
   'relative font-nav text-sm font-medium text-ink transition-opacity hover:opacity-70 sm:text-lg'
 const activeClass =
   "after:content-[''] after:absolute after:left-0 after:right-0 after:top-full after:mt-0.5 after:h-0.5 after:bg-ink after:rounded-full"
 
-const navItems = [
+interface NavItem {
+  to: string
+  label: string
+  route?: boolean
+}
+
+const navItems: NavItem[] = [
   { to: '/about', label: 'About', route: true },
   { to: '/#projects', label: 'Projects' },
   { to: '/#contact', label: 'Contact' },
   { to: '/dashboard', label: 'Dashboard', route: true },
 ]
 
-export default function Header({ name = 'Madelyn Torff' }) {
+export default function Header({ name = 'Madelyn Torff' }: { name?: string }) {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -23,7 +29,7 @@ export default function Header({ name = 'Madelyn Torff' }) {
 
   useEffect(() => {
     if (!menuOpen) return
-    const handleKey = (e) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMenuOpen(false)
     }
     document.addEventListener('keydown', handleKey)

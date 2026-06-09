@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'
-import useProjects from '../hooks/useProjects'
-import useToast from '../hooks/useToast'
+import type { Project } from '@/types'
+import useProjects from '@/hooks/useProjects'
+import useToast from '@/hooks/useToast'
 import ConfirmModal from './ConfirmModal'
 
 const thClass =
@@ -10,16 +11,23 @@ const tdClass = 'px-6 py-4 align-middle'
 const iconBtnClass =
   'flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-ink transition-colors hover:bg-page'
 
+interface ProjectsTableProps {
+  projects: Project[]
+  onEdit: (project: Project) => void
+  emptyMessage?: string
+}
+
 export default function ProjectsTable({
   projects,
   onEdit,
   emptyMessage = 'Aucun projet pour le moment.',
-}) {
+}: ProjectsTableProps) {
   const { deleteProject } = useProjects()
   const toast = useToast()
-  const [confirming, setConfirming] = useState(null)
+  const [confirming, setConfirming] = useState<Project | null>(null)
 
   const handleConfirm = () => {
+    if (!confirming) return
     deleteProject(confirming.id)
     toast.success('Projet supprimé')
     setConfirming(null)

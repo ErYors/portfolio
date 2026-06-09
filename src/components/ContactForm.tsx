@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
+import type { ContactDraft } from '@/types'
 import Button from './Button'
 
 const inputClass =
@@ -6,22 +8,28 @@ const inputClass =
 
 const labelClass = 'font-body text-base text-ink'
 
-const fields = [
-  { id: 'name', label: 'Name', type: 'text', autoComplete: 'name' },
-  { id: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
+const fields: { id: 'name' | 'email'; label: string; type: string }[] = [
+  { id: 'name', label: 'Name', type: 'text' },
+  { id: 'email', label: 'Email', type: 'email' },
 ]
 
-const INITIAL_VALUES = { name: '', email: '', message: '' }
+const INITIAL_VALUES: ContactDraft = { name: '', email: '', message: '' }
 
-export default function ContactForm({ onSubmit }) {
-  const [values, setValues] = useState(INITIAL_VALUES)
+interface ContactFormProps {
+  onSubmit?: (values: ContactDraft) => void
+}
 
-  const handleChange = (e) => {
+export default function ContactForm({ onSubmit }: ContactFormProps) {
+  const [values, setValues] = useState<ContactDraft>(INITIAL_VALUES)
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { id, value } = e.target
     setValues((prev) => ({ ...prev, [id]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmit?.(values)
     setValues(INITIAL_VALUES)
@@ -41,7 +49,7 @@ export default function ContactForm({ onSubmit }) {
             id={field.id}
             name={field.id}
             type={field.type}
-            autoComplete={field.autoComplete}
+            autoComplete={field.id}
             required
             value={values[field.id]}
             onChange={handleChange}

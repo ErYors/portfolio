@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import useImageValidation from '../hooks/useImageValidation'
+import type { ChangeEvent, FormEvent } from 'react'
+import type { Project, ProjectDraft } from '@/types'
+import useImageValidation from '@/hooks/useImageValidation'
 import Button from './Button'
 import ImageStatus from './ImageStatus'
 
@@ -8,22 +10,33 @@ const inputClass =
 
 const labelClass = 'font-body text-base font-bold text-ink'
 
-const EMPTY_PROJECT = { name: '', description: '', image: '', url: '' }
+interface ProjectModalProps {
+  onClose: () => void
+  onSave: (values: ProjectDraft) => void
+  project: Project | null
+}
 
-export default function ProjectModal({ onClose, onSave, project }) {
-  const [values, setValues] = useState({ ...EMPTY_PROJECT, ...project })
-  const nameInputRef = useRef(null)
+export default function ProjectModal({
+  onClose,
+  onSave,
+  project,
+}: ProjectModalProps) {
+  const [values, setValues] = useState<ProjectDraft>({
+    name: project?.name ?? '',
+    description: project?.description ?? '',
+    image: project?.image ?? '',
+    url: project?.url ?? '',
+  })
+  const nameInputRef = useRef<HTMLInputElement>(null)
   const imageStatus = useImageValidation(values.image)
   const isEditing = project != null
 
   useEffect(() => {
-    const previouslyFocused = document.activeElement
     nameInputRef.current?.focus()
-    return () => previouslyFocused?.focus?.()
   }, [])
 
   useEffect(() => {
-    const handleKey = (e) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', handleKey)
@@ -35,12 +48,14 @@ export default function ProjectModal({ onClose, onSave, project }) {
     }
   }, [onClose])
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { id, value } = e.target
     setValues((prev) => ({ ...prev, [id]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSave(values)
   }

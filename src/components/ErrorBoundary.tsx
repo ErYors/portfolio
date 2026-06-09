@@ -1,14 +1,27 @@
 import { Component } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
 import Button from './Button'
 
-export default class ErrorBoundary extends Component {
-  state = { hasError: false, error: null }
+interface ErrorBoundaryProps {
+  children: ReactNode
+}
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error }
+interface ErrorBoundaryState {
+  hasError: boolean
+  error: Error | null
+}
+
+export default class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  state: ErrorBoundaryState = { hasError: false, error: null }
+
+  static getDerivedStateFromError(error: unknown): ErrorBoundaryState {
+    return { hasError: true, error: error instanceof Error ? error : null }
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: unknown, errorInfo: ErrorInfo) {
     console.error('ErrorBoundary caught:', error, errorInfo)
   }
 

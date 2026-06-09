@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react'
 import { FaQuoteLeft } from 'react-icons/fa'
+import type { Testimonial } from '@/types'
 import SectionTitle from './SectionTitle'
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
-    id: 1,
+    id: 't-1',
     name: 'Sarah Johnson',
     role: 'Product Manager, Acme Corp',
     quote:
       'Madelyn brought our vision to life with stunning attention to detail. Her design sensibility transformed our product into something truly delightful.',
   },
   {
-    id: 2,
+    id: 't-2',
     name: 'David Chen',
     role: 'Founder, Stellar Studios',
     quote:
       "Working with Madelyn was a game-changer. She doesn't just design, she listens, iterates, and delivers consistently above expectations.",
   },
   {
-    id: 3,
+    id: 't-3',
     name: 'Emma Rodriguez',
     role: 'Marketing Lead, Nova Tech',
     quote:
@@ -39,6 +40,7 @@ export default function Testimonials() {
   }, [activeIndex])
 
   const active = testimonials[activeIndex]
+  if (!active) return null
 
   return (
     <section className="flex flex-col items-center gap-12 px-6 py-16">

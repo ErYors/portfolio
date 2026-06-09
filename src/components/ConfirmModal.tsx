@@ -1,5 +1,15 @@
 import { useEffect, useRef } from 'react'
-import Button from './Button'
+import Button, { type ButtonVariant } from './Button'
+
+interface ConfirmModalProps {
+  title: string
+  message: string
+  confirmLabel?: string
+  cancelLabel?: string
+  confirmVariant?: ButtonVariant
+  onConfirm: () => void
+  onCancel: () => void
+}
 
 export default function ConfirmModal({
   title,
@@ -9,17 +19,19 @@ export default function ConfirmModal({
   confirmVariant = 'primary',
   onConfirm,
   onCancel,
-}) {
-  const cancelRef = useRef(null)
+}: ConfirmModalProps) {
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const previouslyFocused = document.activeElement
     cancelRef.current?.focus()
-    return () => previouslyFocused?.focus?.()
+    return () => {
+      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus()
+    }
   }, [])
 
   useEffect(() => {
-    const handleKey = (e) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onCancel()
     }
     document.addEventListener('keydown', handleKey)
