@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router'
+import { Route, Routes } from 'react-router'
 import Layout from '@/layouts/Layout'
 import AdminLayout from '@/layouts/AdminLayout'
 import ProtectedRoute from '@/components/ProtectedRoute'
@@ -10,6 +10,7 @@ const About = lazy(() => import('@/pages/About'))
 const Contact = lazy(() => import('@/pages/Contact'))
 const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
 const Login = lazy(() => import('@/pages/Login'))
+const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const AdminContacts = lazy(() => import('@/pages/AdminContacts'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
@@ -30,7 +31,7 @@ export default function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="projects" replace />} />
+            <Route index element={<AdminDashboard />} />
             <Route path="projects" element={<Dashboard />} />
             <Route path="contacts" element={<AdminContacts />} />
           </Route>

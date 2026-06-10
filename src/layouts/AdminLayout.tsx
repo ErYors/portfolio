@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
-import { FaEnvelope, FaFolder, FaSignOutAlt } from 'react-icons/fa'
+import { FaChartLine, FaEnvelope, FaFolder, FaSignOutAlt } from 'react-icons/fa'
 import PageFallback from '@/components/PageFallback'
 import useAuth from '@/hooks/useAuth'
 
@@ -10,8 +10,9 @@ const linkActive = 'bg-page text-ink'
 const linkIdle = 'text-muted hover:bg-page hover:text-ink'
 
 const navItems = [
-  { to: '/admin/projects', label: 'Projets', Icon: FaFolder },
-  { to: '/admin/contacts', label: 'Messages', Icon: FaEnvelope },
+  { to: '/admin', label: 'Vue d’ensemble', Icon: FaChartLine, end: true },
+  { to: '/admin/projects', label: 'Projets', Icon: FaFolder, end: false },
+  { to: '/admin/contacts', label: 'Messages', Icon: FaEnvelope, end: false },
 ]
 
 export default function AdminLayout() {
@@ -35,10 +36,11 @@ export default function AdminLayout() {
           </Link>
 
           <nav className="flex gap-1">
-            {navItems.map(({ to, label, Icon }) => (
+            {navItems.map(({ to, label, Icon, end }) => (
               <NavLink
                 key={to}
                 to={to}
+                end={end}
                 className={({ isActive }) =>
                   `${linkBase} ${isActive ? linkActive : linkIdle}`
                 }
