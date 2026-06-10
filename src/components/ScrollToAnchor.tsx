@@ -2,13 +2,18 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router'
 
 export default function ScrollToAnchor() {
-  const { hash } = useLocation()
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    if (!hash) return
-    const el = document.querySelector(hash)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }, [hash])
+    if (hash) {
+      const el = document.querySelector(hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        return
+      }
+    }
+    window.scrollTo(0, 0)
+  }, [pathname, hash])
 
   return null
 }
