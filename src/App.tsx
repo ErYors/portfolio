@@ -13,6 +13,7 @@ const Login = lazy(() => import('@/pages/Login'))
 const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const AdminContacts = lazy(() => import('@/pages/AdminContacts'))
+const AdminTestimonials = lazy(() => import('@/pages/AdminTestimonials'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="projects" element={<Dashboard />} />
             <Route path="contacts" element={<AdminContacts />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
           </Route>
         </Route>
       </Routes>

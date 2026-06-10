@@ -1,6 +1,12 @@
 import { Suspense } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
-import { FaChartLine, FaEnvelope, FaFolder, FaSignOutAlt } from 'react-icons/fa'
+import {
+  FaChartLine,
+  FaEnvelope,
+  FaFolder,
+  FaQuoteLeft,
+  FaSignOutAlt,
+} from 'react-icons/fa'
 import PageFallback from '@/components/PageFallback'
 import useAuth from '@/hooks/useAuth'
 
@@ -13,6 +19,12 @@ const navItems = [
   { to: '/admin', label: 'Vue d’ensemble', Icon: FaChartLine, end: true },
   { to: '/admin/projects', label: 'Projets', Icon: FaFolder, end: false },
   { to: '/admin/contacts', label: 'Messages', Icon: FaEnvelope, end: false },
+  {
+    to: '/admin/testimonials',
+    label: 'Avis',
+    Icon: FaQuoteLeft,
+    end: false,
+  },
 ]
 
 export default function AdminLayout() {

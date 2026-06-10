@@ -8,4 +8,5 @@ export {
 export type { ContactDraft, ContactMessage } from './contact'
 export { userSchema, googleCredentialSchema } from './user'
 export type { User } from './user'
+export { testimonialSchema, testimonialsSchema } from './testimonial'
 export type { Testimonial } from './testimonial'

@@ -1,45 +1,27 @@
 import { useEffect, useState } from 'react'
 import { FaQuoteLeft } from 'react-icons/fa'
-import type { Testimonial } from '@/types'
+import useTestimonials from '@/hooks/useTestimonials'
 import SectionTitle from './SectionTitle'
-
-const testimonials: Testimonial[] = [
-  {
-    id: 't-1',
-    name: 'Sarah Johnson',
-    role: 'Product Manager, Acme Corp',
-    quote:
-      'Madelyn brought our vision to life with stunning attention to detail. Her design sensibility transformed our product into something truly delightful.',
-  },
-  {
-    id: 't-2',
-    name: 'David Chen',
-    role: 'Founder, Stellar Studios',
-    quote:
-      "Working with Madelyn was a game-changer. She doesn't just design, she listens, iterates, and delivers consistently above expectations.",
-  },
-  {
-    id: 't-3',
-    name: 'Emma Rodriguez',
-    role: 'Marketing Lead, Nova Tech',
-    quote:
-      "An incredible eye for typography and layout. Madelyn's work elevated our brand identity beyond what we thought possible.",
-  },
-]
 
 const AUTO_ROTATE_MS = 5000
 
 export default function Testimonials() {
+  const { testimonials } = useTestimonials()
+  const visible = testimonials.filter((t) => !t.hidden)
   const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
+    if (visible.length <= 1) return
     const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length)
+      setActiveIndex((prev) => (prev + 1) % visible.length)
     }, AUTO_ROTATE_MS)
     return () => clearInterval(id)
-  }, [activeIndex])
+  }, [visible.length])
 
-  const active = testimonials[activeIndex]
+  if (visible.length === 0) return null
+
+  const safeIndex = activeIndex % visible.length
+  const active = visible[safeIndex]
   if (!active) return null
 
   return (
@@ -64,23 +46,25 @@ export default function Testimonials() {
         </div>
       </article>
 
-      <div className="flex gap-3" role="tablist" aria-label="Témoignages">
-        {testimonials.map((t, i) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={i === activeIndex}
-            aria-label={`Voir témoignage ${i + 1}`}
-            onClick={() => setActiveIndex(i)}
-            className={`h-2 cursor-pointer rounded-full transition-all ${
-              i === activeIndex
-                ? 'w-8 bg-ink'
-                : 'w-2 bg-muted/40 hover:bg-muted'
-            }`}
-          />
-        ))}
-      </div>
+      {visible.length > 1 && (
+        <div className="flex gap-3" role="tablist" aria-label="Témoignages">
+          {visible.map((t, i) => (
+            <button
+              key={t.id}
+              type="button"
+              role="tab"
+              aria-selected={i === safeIndex}
+              aria-label={`Voir témoignage ${i + 1}`}
+              onClick={() => setActiveIndex(i)}
+              className={`h-2 cursor-pointer rounded-full transition-all ${
+                i === safeIndex
+                  ? 'w-8 bg-ink'
+                  : 'w-2 bg-muted/40 hover:bg-muted'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }
