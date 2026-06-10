@@ -1,6 +1,10 @@
 export { projectSchema, projectDraftSchema, projectsSchema } from './project'
 export type { Project, ProjectDraft } from './project'
-export { contactDraftSchema, contactMessageSchema } from './contact'
+export {
+  contactDraftSchema,
+  contactMessageSchema,
+  contactMessagesSchema,
+} from './contact'
 export type { ContactDraft, ContactMessage } from './contact'
 export { userSchema, googleCredentialSchema } from './user'
 export type { User } from './user'

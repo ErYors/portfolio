@@ -12,5 +12,7 @@ export const contactMessageSchema = contactDraftSchema.extend({
   read: z.boolean(),
 })
 
+export const contactMessagesSchema = z.array(contactMessageSchema)
+
 export type ContactDraft = z.infer<typeof contactDraftSchema>
 export type ContactMessage = z.infer<typeof contactMessageSchema>
