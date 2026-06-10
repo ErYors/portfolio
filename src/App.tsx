@@ -6,6 +6,7 @@ import PageFallback from '@/components/PageFallback'
 
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
+const Contact = lazy(() => import('@/pages/Contact'))
 const Login = lazy(() => import('@/pages/Login'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
@@ -19,6 +20,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="admin/projects" element={<Dashboard />} />

@@ -18,7 +18,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { to: '/about', label: 'About', route: true },
   { to: '/#projects', label: 'Projects' },
-  { to: '/#contact', label: 'Contact' },
+  { to: '/contact', label: 'Contact', route: true },
   { to: '/admin/projects', label: 'Dashboard', route: true },
 ]
 
