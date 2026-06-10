@@ -1,4 +1,6 @@
+export { projectSchema, projectDraftSchema, projectsSchema } from './project'
 export type { Project, ProjectDraft } from './project'
+export { contactDraftSchema, contactMessageSchema } from './contact'
 export type { ContactDraft, ContactMessage } from './contact'
 export type { Testimonial } from './testimonial'
 export type { User } from './user'

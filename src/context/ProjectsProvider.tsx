@@ -5,7 +5,7 @@ import project1 from '@/assets/project-1.webp'
 import project2 from '@/assets/project-2.webp'
 import project3 from '@/assets/project-3.webp'
 import { ProjectsContext } from '@/context/ProjectsContext'
-import type { Project, ProjectDraft } from '@/types'
+import { projectsSchema, type Project, type ProjectDraft } from '@/types'
 
 const STORAGE_KEY = 'portfolio-projects'
 
@@ -46,10 +46,8 @@ function getInitialProjects(): Project[] {
   if (!stored) return seedProjects
   try {
     const parsed: unknown = JSON.parse(stored)
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      return parsed as Project[]
-    }
-    return seedProjects
+    const result = projectsSchema.safeParse(parsed)
+    return result.success && result.data.length > 0 ? result.data : seedProjects
   } catch {
     return seedProjects
   }
