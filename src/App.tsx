@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 import Layout from '@/layouts/Layout'
+import AdminLayout from '@/layouts/AdminLayout'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import PageFallback from '@/components/PageFallback'
 
@@ -9,6 +10,7 @@ const About = lazy(() => import('@/pages/About'))
 const Contact = lazy(() => import('@/pages/Contact'))
 const Login = lazy(() => import('@/pages/Login'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
+const AdminContacts = lazy(() => import('@/pages/AdminContacts'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default function App() {
@@ -21,12 +23,15 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-
-          <Route element={<ProtectedRoute />}>
-            <Route path="admin/projects" element={<Dashboard />} />
-          </Route>
-
           <Route path="*" element={<NotFound />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="projects" replace />} />
+            <Route path="projects" element={<Dashboard />} />
+            <Route path="contacts" element={<AdminContacts />} />
+          </Route>
         </Route>
       </Routes>
     </Suspense>
