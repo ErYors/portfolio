@@ -45,6 +45,20 @@ export default function ProjectDetail() {
           <h1 className="font-serif text-[clamp(2rem,4vw,3.5rem)] font-bold text-ink">
             {project.name}
           </h1>
+
+          {project.tags.length > 0 && (
+            <ul className="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-full bg-page px-3 py-1 font-body text-sm text-ink"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
+
           <p className="font-body text-lg leading-relaxed text-muted">
             {project.description}
           </p>

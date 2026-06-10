@@ -9,6 +9,7 @@ export default function ProjectCard({
   name,
   description,
   image,
+  tags,
   reverse = false,
 }: ProjectCardProps) {
   const direction = reverse ? 'md:flex-row-reverse' : 'md:flex-row'
@@ -24,6 +25,18 @@ export default function ProjectCard({
         <p className="font-body text-base leading-relaxed text-muted">
           {description}
         </p>
+        {tags.length > 0 && (
+          <ul className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full bg-page px-3 py-1 font-body text-sm text-ink"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
         <div>
           <Button
             variant="secondary"

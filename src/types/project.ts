@@ -6,6 +6,7 @@ export const projectSchema = z.object({
   description: z.string(),
   image: z.string(),
   url: z.string(),
+  tags: z.array(z.string()).default([]),
 })
 
 export const projectDraftSchema = projectSchema.omit({ id: true })
