@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import type { ReactNode } from 'react'
 import placeholder from '@/assets/project-placeholder.svg'
 import project1 from '@/assets/project-1.webp'
@@ -40,6 +40,27 @@ const seedProjects: Project[] = [
   },
 ]
 
+type ProjectsAction =
+  | { type: 'add'; project: Project }
+  | { type: 'update'; id: string; updates: Partial<ProjectDraft> }
+  | { type: 'delete'; id: string }
+  | { type: 'reset' }
+
+function projectsReducer(state: Project[], action: ProjectsAction): Project[] {
+  switch (action.type) {
+    case 'add':
+      return [...state, action.project]
+    case 'update':
+      return state.map((p) =>
+        p.id === action.id ? withDefaults({ ...p, ...action.updates }) : p,
+      )
+    case 'delete':
+      return state.filter((p) => p.id !== action.id)
+    case 'reset':
+      return seedProjects
+  }
+}
+
 function getInitialProjects(): Project[] {
   if (typeof window === 'undefined') return seedProjects
   const stored = localStorage.getItem(STORAGE_KEY)
@@ -54,34 +75,36 @@ function getInitialProjects(): Project[] {
 }
 
 export function ProjectsProvider({ children }: { children: ReactNode }) {
-  const [projects, setProjects] = useState<Project[]>(getInitialProjects)
+  const [projects, dispatch] = useReducer(
+    projectsReducer,
+    undefined,
+    getInitialProjects,
+  )
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
   }, [projects])
 
   const addProject = useCallback((project: ProjectDraft) => {
-    setProjects((prev) => [
-      ...prev,
-      { ...withDefaults(project), id: crypto.randomUUID() },
-    ])
+    dispatch({
+      type: 'add',
+      project: { ...withDefaults(project), id: crypto.randomUUID() },
+    })
   }, [])
 
   const updateProject = useCallback(
     (id: string, updates: Partial<ProjectDraft>) => {
-      setProjects((prev) =>
-        prev.map((p) => (p.id === id ? withDefaults({ ...p, ...updates }) : p)),
-      )
+      dispatch({ type: 'update', id, updates })
     },
     [],
   )
 
   const deleteProject = useCallback((id: string) => {
-    setProjects((prev) => prev.filter((p) => p.id !== id))
+    dispatch({ type: 'delete', id })
   }, [])
 
   const resetProjects = useCallback(() => {
-    setProjects(seedProjects)
+    dispatch({ type: 'reset' })
   }, [])
 
   const value = useMemo(
