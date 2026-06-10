@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router'
+import { Link, NavLink, useNavigate } from 'react-router'
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa'
+import useAuth from '@/hooks/useAuth'
 import useTheme from '@/hooks/useTheme'
 
 const tabClass =
@@ -18,14 +19,22 @@ const navItems: NavItem[] = [
   { to: '/about', label: 'About', route: true },
   { to: '/#projects', label: 'Projects' },
   { to: '/#contact', label: 'Contact' },
-  { to: '/dashboard', label: 'Dashboard', route: true },
+  { to: '/admin/projects', label: 'Dashboard', route: true },
 ]
 
 export default function Header({ name = 'Madelyn Torff' }: { name?: string }) {
   const { theme, toggleTheme } = useTheme()
+  const { isAuthenticated, logout } = useAuth()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const closeMenu = () => setMenuOpen(false)
+
+  const handleLogout = () => {
+    logout()
+    closeMenu()
+    void navigate('/')
+  }
 
   useEffect(() => {
     if (!menuOpen) return
@@ -70,6 +79,12 @@ export default function Header({ name = 'Madelyn Torff' }: { name?: string }) {
     </button>
   )
 
+  const logoutButton = isAuthenticated ? (
+    <button type="button" onClick={handleLogout} className={tabClass}>
+      Déconnexion
+    </button>
+  ) : null
+
   return (
     <header className="relative z-20 mx-auto flex h-14 w-full max-w-300 items-center justify-between px-4 sm:px-6 xl:px-0">
       <Link
@@ -83,6 +98,7 @@ export default function Header({ name = 'Madelyn Torff' }: { name?: string }) {
       <nav className="hidden md:block">
         <ul className="flex items-center gap-12">
           {renderLinks()}
+          {logoutButton && <li>{logoutButton}</li>}
           <li>{themeToggle}</li>
         </ul>
       </nav>
@@ -106,7 +122,10 @@ export default function Header({ name = 'Madelyn Torff' }: { name?: string }) {
           id="mobile-menu"
           className="absolute top-full right-0 left-0 animate-fade-in border-b border-border bg-page shadow-lg md:hidden"
         >
-          <ul className="flex flex-col gap-4 px-4 py-6">{renderLinks()}</ul>
+          <ul className="flex flex-col gap-4 px-4 py-6">
+            {renderLinks()}
+            {logoutButton && <li>{logoutButton}</li>}
+          </ul>
         </nav>
       )}
     </header>
