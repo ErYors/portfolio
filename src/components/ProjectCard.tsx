@@ -1,13 +1,14 @@
+import { Link } from 'react-router'
 import type { Project } from '@/types'
 import Button from './Button'
 
 type ProjectCardProps = Project & { reverse?: boolean }
 
 export default function ProjectCard({
+  id,
   name,
   description,
   image,
-  url,
   reverse = false,
 }: ProjectCardProps) {
   const direction = reverse ? 'md:flex-row-reverse' : 'md:flex-row'
@@ -23,20 +24,16 @@ export default function ProjectCard({
         <p className="font-body text-base leading-relaxed text-muted">
           {description}
         </p>
-        {url && (
-          <div>
-            <Button
-              variant="secondary"
-              as="a"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full"
-            >
-              View Project
-            </Button>
-          </div>
-        )}
+        <div>
+          <Button
+            variant="secondary"
+            as={Link}
+            to={`/projects/${id}`}
+            className="rounded-full"
+          >
+            View Project
+          </Button>
+        </div>
       </div>
 
       <div className="aspect-square w-full md:aspect-auto md:w-1/2">
