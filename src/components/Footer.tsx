@@ -21,7 +21,7 @@ interface FooterProps {
 
 export default function Footer({
   name = 'Madelyn Torff',
-  year = 2021,
+  year = new Date().getFullYear(),
 }: FooterProps) {
   return (
     <footer className="relative pt-12">
