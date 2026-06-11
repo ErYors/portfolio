@@ -1,7 +1,6 @@
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa'
-import PageFallback from '@/components/PageFallback'
 import useAuth from '@/hooks/useAuth'
 import useTheme from '@/hooks/useTheme'
 
@@ -130,9 +129,7 @@ export default function AdminLayout() {
       </header>
 
       <main className="flex-1">
-        <Suspense fallback={<PageFallback />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </main>
     </div>
   )

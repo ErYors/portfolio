@@ -1,9 +1,19 @@
 import { lazy, Suspense } from 'react'
+import type { ReactElement } from 'react'
 import { Route, Routes } from 'react-router'
-import Layout from '@/layouts/Layout'
-import AdminLayout from '@/layouts/AdminLayout'
 import ProtectedRoute from '@/components/ProtectedRoute'
-import PageFallback from '@/components/PageFallback'
+import AdminLayout from '@/layouts/AdminLayout'
+import Layout from '@/layouts/Layout'
+import {
+  AboutSkeleton,
+  AdminDashboardSkeleton,
+  AdminListSkeleton,
+  AdminProjectsSkeleton,
+  ContactSkeleton,
+  HomeSkeleton,
+  LoginSkeleton,
+  ProjectDetailSkeleton,
+} from '@/components/skeletons'
 
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
@@ -16,29 +26,49 @@ const AdminContacts = lazy(() => import('@/pages/AdminContacts'))
 const AdminTestimonials = lazy(() => import('@/pages/AdminTestimonials'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
+function suspended(node: ReactElement, fallback: ReactElement | null) {
+  return <Suspense fallback={fallback}>{node}</Suspense>
+}
+
 export default function App() {
   return (
-    <Suspense fallback={<PageFallback />}>
-      <Routes>
-        <Route path="/login" element={<Login />} />
+    <Routes>
+      <Route path="/login" element={suspended(<Login />, <LoginSkeleton />)} />
 
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="projects/:id" element={<ProjectDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+      <Route element={<Layout />}>
+        <Route index element={suspended(<Home />, <HomeSkeleton />)} />
+        <Route path="about" element={suspended(<About />, <AboutSkeleton />)} />
+        <Route
+          path="contact"
+          element={suspended(<Contact />, <ContactSkeleton />)}
+        />
+        <Route
+          path="projects/:id"
+          element={suspended(<ProjectDetail />, <ProjectDetailSkeleton />)}
+        />
+        <Route path="*" element={suspended(<NotFound />, null)} />
+      </Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="projects" element={<Dashboard />} />
-            <Route path="contacts" element={<AdminContacts />} />
-            <Route path="testimonials" element={<AdminTestimonials />} />
-          </Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route
+            index
+            element={suspended(<AdminDashboard />, <AdminDashboardSkeleton />)}
+          />
+          <Route
+            path="projects"
+            element={suspended(<Dashboard />, <AdminProjectsSkeleton />)}
+          />
+          <Route
+            path="contacts"
+            element={suspended(<AdminContacts />, <AdminListSkeleton />)}
+          />
+          <Route
+            path="testimonials"
+            element={suspended(<AdminTestimonials />, <AdminListSkeleton />)}
+          />
         </Route>
-      </Routes>
-    </Suspense>
+      </Route>
+    </Routes>
   )
 }
