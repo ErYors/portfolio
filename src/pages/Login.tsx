@@ -20,9 +20,14 @@ export default function Login() {
     if (isAuthenticated) return
 
     let cancelled = false
-    initGoogleAuth((user) => {
-      login(user)
-    })
+    initGoogleAuth(
+      (user) => {
+        login(user)
+      },
+      (e) => {
+        if (!cancelled) setError(e.message)
+      },
+    )
       .then(() => {
         if (!cancelled && buttonRef.current) {
           renderGoogleButton(buttonRef.current)

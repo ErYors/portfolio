@@ -44,6 +44,7 @@ export function parseCredential(credential: string): User {
 
 export async function initGoogleAuth(
   onLogin: (user: User) => void,
+  onError?: (error: Error) => void,
 ): Promise<void> {
   if (!CLIENT_ID) {
     throw new Error('VITE_GOOGLE_CLIENT_ID manquant (voir .env.example)')
@@ -52,7 +53,11 @@ export async function initGoogleAuth(
   google.accounts.id.initialize({
     client_id: CLIENT_ID,
     callback: (response) => {
-      onLogin(parseCredential(response.credential))
+      try {
+        onLogin(parseCredential(response.credential))
+      } catch (e) {
+        onError?.(e instanceof Error ? e : new Error('Connexion échouée'))
+      }
     },
   })
 }

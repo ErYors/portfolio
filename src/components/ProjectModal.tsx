@@ -3,6 +3,7 @@ import type { ChangeEvent, FormEvent, KeyboardEvent } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import type { Project, ProjectDraft } from '@/types'
 import useImageValidation from '@/hooks/useImageValidation'
+import useToast from '@/hooks/useToast'
 import Button from './Button'
 import ImageStatus from './ImageStatus'
 
@@ -31,6 +32,7 @@ export default function ProjectModal({
   })
   const [tagInput, setTagInput] = useState('')
   const nameInputRef = useRef<HTMLInputElement>(null)
+  const toast = useToast()
   const imageStatus = useImageValidation(values.image)
   const isEditing = project != null
 
@@ -66,6 +68,9 @@ export default function ProjectModal({
       if (typeof reader.result === 'string') {
         setValues((prev) => ({ ...prev, image: reader.result as string }))
       }
+    }
+    reader.onerror = () => {
+      toast.error('Impossible de lire le fichier')
     }
     reader.readAsDataURL(file)
   }
