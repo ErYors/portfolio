@@ -1,92 +1,132 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
-import {
-  FaChartLine,
-  FaEnvelope,
-  FaFolder,
-  FaQuoteLeft,
-  FaSignOutAlt,
-} from 'react-icons/fa'
+import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa'
 import PageFallback from '@/components/PageFallback'
 import useAuth from '@/hooks/useAuth'
+import useTheme from '@/hooks/useTheme'
 
-const linkBase =
-  'flex items-center gap-2 rounded-lg px-3 py-2 font-nav text-sm font-medium transition-colors'
-const linkActive = 'bg-page text-ink'
-const linkIdle = 'text-muted hover:bg-page hover:text-ink'
+const tabClass =
+  'relative font-nav text-sm font-medium text-ink transition-opacity hover:opacity-70 sm:text-lg'
+const activeClass =
+  "after:content-[''] after:absolute after:left-0 after:right-0 after:top-full after:mt-0.5 after:h-0.5 after:bg-ink after:rounded-full"
 
 const navItems = [
-  { to: '/admin', label: 'Vue d’ensemble', Icon: FaChartLine, end: true },
-  { to: '/admin/projects', label: 'Projets', Icon: FaFolder, end: false },
-  { to: '/admin/contacts', label: 'Messages', Icon: FaEnvelope, end: false },
-  {
-    to: '/admin/testimonials',
-    label: 'Avis',
-    Icon: FaQuoteLeft,
-    end: false,
-  },
+  { to: '/admin', label: 'Vue d’ensemble', end: true },
+  { to: '/admin/projects', label: 'Projets', end: false },
+  { to: '/admin/contacts', label: 'Messages', end: false },
+  { to: '/admin/testimonials', label: 'Avis', end: false },
 ]
 
 export default function AdminLayout() {
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const closeMenu = () => setMenuOpen(false)
 
   const handleLogout = () => {
     logout()
+    closeMenu()
     void navigate('/')
   }
 
+  useEffect(() => {
+    if (!menuOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [menuOpen])
+
+  const renderLinks = () =>
+    navItems.map(({ to, label, end }) => (
+      <li key={to}>
+        <NavLink
+          to={to}
+          end={end}
+          onClick={closeMenu}
+          className={({ isActive }) =>
+            `${tabClass}${isActive ? ` ${activeClass}` : ''}`
+          }
+        >
+          {label}
+        </NavLink>
+      </li>
+    ))
+
+  const homeLink = (
+    <Link to="/" onClick={closeMenu} className={tabClass}>
+      Accueil
+    </Link>
+  )
+
+  const logoutButton = (
+    <button type="button" onClick={handleLogout} className={tabClass}>
+      Déconnexion
+    </button>
+  )
+
+  const themeToggle = (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label={
+        theme === 'dark' ? 'Activer le mode clair' : 'Activer le mode sombre'
+      }
+      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-ink transition-opacity hover:opacity-70"
+    >
+      {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+    </button>
+  )
+
   return (
     <div className="flex min-h-screen flex-col bg-page">
-      <header className="border-b border-border bg-surface">
-        <div className="mx-auto flex h-16 max-w-300 items-center justify-between gap-4 px-4 sm:px-6">
-          <Link
-            to="/"
-            className="font-logo text-lg font-bold text-ink transition-opacity hover:opacity-70"
+      <header className="relative z-20 mx-auto flex h-14 w-full max-w-300 items-center justify-between px-4 sm:px-6 xl:px-0">
+        <Link
+          to="/"
+          onClick={closeMenu}
+          className="font-logo text-sm font-bold leading-8 text-ink sm:text-lg"
+        >
+          Admin
+        </Link>
+
+        <nav className="hidden md:block">
+          <ul className="flex items-center gap-8">
+            <li>{homeLink}</li>
+            {renderLinks()}
+            <li>{logoutButton}</li>
+            <li>{themeToggle}</li>
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-1 md:hidden">
+          {themeToggle}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={menuOpen}
+            aria-controls="admin-menu"
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-ink transition-opacity hover:opacity-70"
           >
-            Admin
-          </Link>
-
-          <nav className="flex gap-1">
-            {navItems.map(({ to, label, Icon, end }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={end}
-                className={({ isActive }) =>
-                  `${linkBase} ${isActive ? linkActive : linkIdle}`
-                }
-              >
-                <Icon size={14} aria-hidden />
-                <span className="hidden sm:inline">{label}</span>
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {user && (
-              <span className="hidden items-center gap-2 md:flex">
-                <img
-                  src={user.picture}
-                  alt=""
-                  className="h-8 w-8 rounded-full"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="font-body text-sm text-muted">
-                  {user.email}
-                </span>
-              </span>
-            )}
-            <button
-              type="button"
-              onClick={handleLogout}
-              aria-label="Se déconnecter"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-ink transition-colors hover:bg-page"
-            >
-              <FaSignOutAlt size={16} />
-            </button>
-          </div>
+            {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
         </div>
+
+        {menuOpen && (
+          <nav
+            id="admin-menu"
+            className="absolute top-full right-0 left-0 animate-fade-in border-b border-border bg-page shadow-lg md:hidden"
+          >
+            <ul className="flex flex-col gap-4 px-4 py-6">
+              <li>{homeLink}</li>
+              {renderLinks()}
+              <li>{logoutButton}</li>
+            </ul>
+          </nav>
+        )}
       </header>
 
       <main className="flex-1">
