@@ -1,13 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import type { ReactNode } from 'react'
 import { ContactsContext } from '@/context/ContactsContext'
-import {
-  contactMessagesSchema,
-  type ContactDraft,
-  type ContactMessage,
-} from '@/types'
-
-const STORAGE_KEY = 'portfolio-contacts'
+import { getContacts, saveContacts } from '@/services/contactsService'
+import type { ContactDraft, ContactMessage } from '@/types'
 
 type ContactsAction =
   | { type: 'add'; message: ContactMessage }
@@ -28,28 +23,15 @@ function contactsReducer(
   }
 }
 
-function getInitialMessages(): ContactMessage[] {
-  if (typeof window === 'undefined') return []
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (!stored) return []
-  try {
-    const parsed: unknown = JSON.parse(stored)
-    const result = contactMessagesSchema.safeParse(parsed)
-    return result.success ? result.data : []
-  } catch {
-    return []
-  }
-}
-
 export function ContactsProvider({ children }: { children: ReactNode }) {
   const [messages, dispatch] = useReducer(
     contactsReducer,
     undefined,
-    getInitialMessages,
+    getContacts,
   )
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+    saveContacts(messages)
   }, [messages])
 
   const addMessage = useCallback((draft: ContactDraft) => {
